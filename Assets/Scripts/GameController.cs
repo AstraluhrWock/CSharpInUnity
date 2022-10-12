@@ -13,7 +13,7 @@ public sealed class GameController : MonoBehaviour
 
     private void Start()
     {
-        gameWinPanel.SetActive(false);
+       // gameWinPanel.SetActive(false);
     }
 
     private void Awake()
