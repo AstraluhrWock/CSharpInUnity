@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<SavedData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>Ball</Name>
+  <Position>
+    <X>6.2</X>
+    <Y>0.461</Y>
+    <Z>-5.94</Z>
+  </Position>
+  <IsEnabled>false</IsEnabled>
+</SavedData>
