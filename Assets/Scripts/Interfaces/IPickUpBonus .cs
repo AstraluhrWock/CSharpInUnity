@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public interface IPickUpBonus 
 {
     public float SpeedUp(float currSpeed);

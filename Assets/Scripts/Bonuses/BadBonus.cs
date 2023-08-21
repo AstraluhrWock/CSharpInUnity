@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public sealed class BadBonus : InteractiveObject, IFlicker
@@ -11,41 +8,14 @@ public sealed class BadBonus : InteractiveObject, IFlicker
     private Material _material;
     private Player _player;
 
-   // private List<InteractiveObject> _badBonus = new List<InteractiveObject>();
-
-    /*private void AddBonus(InteractiveObject bonus)
-    {
-      _badBonus.Add(bonus);
-    }*/
-
     private void Awake()
     {
         _material = GetComponent<Renderer>().material;
         _player = FindObjectOfType<Player>();
-        
     }
 
     protected override void Interaction()
     {
-
-        /* if (other.gameObject.TryGetComponent(out IHealthDown hpDown))
-         {
-             hpDown.HealthDown();
-         }
-
-         if (other.gameObject.TryGetComponent(out ISpeedDown speedDown))
-         {
-             speedDown.SpeedDown();
-         }*/
-        if (isSpeedDown)
-            _player.SpeedPoint = 2;
-           
-
-        if (isHealthDown)
-            _player.HealthPoint = 75;
-        
-        
-        
 
     }
 
@@ -63,7 +33,7 @@ public sealed class BadBonus : InteractiveObject, IFlicker
     {
         if (currSpeed == 0)
         { 
-            // Destroy();
+            Destroy(this.gameObject);
         }
     }
 

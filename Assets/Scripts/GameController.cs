@@ -1,30 +1,30 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEditor.UI;
+
 
 public sealed class GameController : MonoBehaviour
 {
-    [SerializeField] private GameObject gameWinPanel;
-    private InteractiveObject[] _interactiveObjects;
+    [SerializeField] private GameObject _gameWinPanel;
+    private List<InteractiveObject> _interactiveObjects;
     private bool isWin = false;
 
     private void Start()
     {
-       // gameWinPanel.SetActive(false);
+        _gameWinPanel.SetActive(false);
     }
 
     private void Awake()
     {
-        _interactiveObjects = FindObjectsOfType<InteractiveObject>();
+        _interactiveObjects = new List<InteractiveObject>();
+        InteractiveObject[] sceneObjects = FindObjectsOfType<InteractiveObject>();  
+        _interactiveObjects.AddRange(sceneObjects);      
     }
     
 
     private void Update()
     {
-        for (var i = 0; i < _interactiveObjects.Length; i++)
+        for (int i = 0; i < _interactiveObjects.Count; i++)
         {
             var interactiveObject = _interactiveObjects[i];
 
@@ -53,17 +53,18 @@ public sealed class GameController : MonoBehaviour
                 speedUp.SpeedUp();
             }
 
-            /*if (interactiveObject is ISpeedDown speedDown)
+            if (interactiveObject is ISpeedDown speedDown)
             {
                 speedDown.SpeedDown();
-            }*/
+            }
 
             Invoke("Reload", 2f);
         }
 
-        /*if (_interactiveObjects.Length) // при подборе всех бонусов
-            if (isWin)
-                gameWinPanel.SetActive(true);*/
+ 
+        if (_interactiveObjects.Count==0)
+           //if (isWin==true)
+                _gameWinPanel.SetActive(true);
     }
 
     private void Reload()

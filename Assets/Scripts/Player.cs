@@ -1,18 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
 
 public class Player : MonoBehaviour, IHealthUp, IHealthDown, ISpeedUp, ISpeedDown
 {
-    private Rigidbody _ball;
     [SerializeField] private float _health = 100;
+    [SerializeField] private int _speed = 4;
+    private Rigidbody _ball;
     private float _score;
-  
 
     public Action<float> SpeedChanged;
-
-    public int speed = 4;
 
     public float HealthPoint
     {
@@ -22,8 +18,8 @@ public class Player : MonoBehaviour, IHealthUp, IHealthDown, ISpeedUp, ISpeedDow
 
     public int SpeedPoint
     {
-        get { return speed; }
-        set { speed = value; }
+        get { return _speed; }
+        set { _speed = value; }
     }
 
     public Player(float health)
@@ -31,9 +27,14 @@ public class Player : MonoBehaviour, IHealthUp, IHealthDown, ISpeedUp, ISpeedDow
         _health = health;
     }
 
-    public float SpeedUp() //(float currSpeed)
+    protected void SetRigidbody()
     {
-        return speed + 2; // return currSpeed + 2;
+        _ball = GetComponent<Rigidbody>();
+    }
+
+    public float SpeedUp() 
+    {
+        return _speed + 2;
     }
 
     public float HealthUp()
@@ -43,8 +44,8 @@ public class Player : MonoBehaviour, IHealthUp, IHealthDown, ISpeedUp, ISpeedDow
     public float SpeedDown()
     { 
         Debug.Log("Speed down");
-        SpeedChanged?.Invoke(speed);
-        return speed - 2;
+        SpeedChanged?.Invoke(_speed);
+        return _speed - 2;
         
     }
     public float HealthDown()
@@ -66,25 +67,17 @@ public class Player : MonoBehaviour, IHealthUp, IHealthDown, ISpeedUp, ISpeedDow
         SpeedChanged -= speedChanged;
     }
 
-
-    void Start()
-    {
-        _ball = GetComponent<Rigidbody>();
-    }
-
-    void FixedUpdate()
-    {
-        Move();
-    }
-
-    void Move()
+    protected void Move()
      {
         float rotationX = Input.GetAxisRaw("Horizontal");
         float rotationZ = Input.GetAxisRaw("Vertical");
         Vector3 moveBall = new Vector3(rotationX, 0.0f , rotationZ);
-        _ball.AddForce(moveBall * speed);
+        _ball.AddForce(moveBall * _speed);
      }
 
-
+    private void OnTriggerEnter(Collider other)
+    {
+        Destroy(other.gameObject);
+    }
 
 }

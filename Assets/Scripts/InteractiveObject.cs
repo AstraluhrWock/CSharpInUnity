@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class InteractiveObject : MonoBehaviour
 {
+    
     public bool IsInteractable { get; } = true;
     protected abstract void Interaction();
 
@@ -27,6 +26,6 @@ public abstract class InteractiveObject : MonoBehaviour
         if (TryGetComponent(out Renderer renderer))
         {
             renderer.material.color = Random.ColorHSV();
-        }
+        }   
     }
 }
