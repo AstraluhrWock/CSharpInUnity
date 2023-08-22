@@ -1,12 +1,12 @@
 ﻿public class PlayerBall : Player
 {
-    public PlayerBall(float health) : base(health)
+    public PlayerBall(int health, int speed) : base(health, speed)
     { 
     
     }
     private void Awake()
     {
-        SetRigidbody();
+        SetData();
     }
     private void FixedUpdate()
     {

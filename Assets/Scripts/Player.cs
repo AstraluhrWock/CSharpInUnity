@@ -1,16 +1,19 @@
 using UnityEngine;
 using System;
 
-public class Player : MonoBehaviour, IHealthUp, IHealthDown, ISpeedUp, ISpeedDown
+public class Player : MonoBehaviour
 {
-    [SerializeField] private float _health = 100;
+    [SerializeField] private int _health = 100;
     [SerializeField] private int _speed = 4;
+    private Material _material;
     private Rigidbody _ball;
     private float _score;
 
+    private CheckBonuses _checkBonuses;
+
     public Action<float> SpeedChanged;
 
-    public float HealthPoint
+    public int HealthPoint
     {
         get { return _health; }
         set { _health = value; }
@@ -22,39 +25,22 @@ public class Player : MonoBehaviour, IHealthUp, IHealthDown, ISpeedUp, ISpeedDow
         set { _speed = value; }
     }
 
-    public Player(float health)
+    public Material PlayerMaterial
+    {
+        get { return _material; }
+        set { _material = value; }
+    }
+
+    public Player(int health, int speed)
     {
         _health = health;
+        _speed = speed;
     }
 
-    protected void SetRigidbody()
+    protected void SetData()
     {
         _ball = GetComponent<Rigidbody>();
-    }
-
-    public float SpeedUp() 
-    {
-        return _speed + 2;
-    }
-
-    public float HealthUp()
-    {
-        return _health + 20;
-    }
-    public float SpeedDown()
-    { 
-        Debug.Log("Speed down");
-        SpeedChanged?.Invoke(_speed);
-        return _speed - 2;
-        
-    }
-    public float HealthDown()
-    {
-        if (_health < 0 || _health == 0)
-        {
-            Destroy(_ball);
-        }
-        return _health - 20;
+        _checkBonuses = new CheckBonuses();     
     }
 
     public void AddSpeedListener(Action<float> speedChanged)
@@ -77,7 +63,10 @@ public class Player : MonoBehaviour, IHealthUp, IHealthDown, ISpeedUp, ISpeedDow
 
     private void OnTriggerEnter(Collider other)
     {
+        var interactiveObject = other.GetComponent<InteractiveObject>();
+        _checkBonuses.Execute(interactiveObject);
         Destroy(other.gameObject);
+
     }
 
 }

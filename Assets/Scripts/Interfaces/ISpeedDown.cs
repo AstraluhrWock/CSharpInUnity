@@ -1,4 +1,4 @@
 public interface ISpeedDown
 {
-    public float SpeedDown();
+    public int SpeedDown();
 }

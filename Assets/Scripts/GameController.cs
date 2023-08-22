@@ -14,58 +14,16 @@ public sealed class GameController : MonoBehaviour
         _gameWinPanel.SetActive(false);
     }
 
-    private void Awake()
-    {
-        _interactiveObjects = new List<InteractiveObject>();
-        InteractiveObject[] sceneObjects = FindObjectsOfType<InteractiveObject>();  
-        _interactiveObjects.AddRange(sceneObjects);      
-    }
-    
+    //private void Update()
+    //{
 
-    private void Update()
-    {
-        for (int i = 0; i < _interactiveObjects.Count; i++)
-        {
-            var interactiveObject = _interactiveObjects[i];
+    //    Invoke("Reload", 2f);
 
-            if (interactiveObject == null)
-            {
-                continue;
-            }
 
-            if (interactiveObject is IFlicker flicker)
-            {
-                flicker.Flicker();
-            }
-
-            if (interactiveObject is IHealthUp healthUp)
-            {
-                healthUp.HealthUp();
-            }
-
-            if (interactiveObject is IHealthDown healthDown)
-            {
-                healthDown.HealthDown();
-            }
-
-            if (interactiveObject is ISpeedUp speedUp)
-            {
-                speedUp.SpeedUp();
-            }
-
-            if (interactiveObject is ISpeedDown speedDown)
-            {
-                speedDown.SpeedDown();
-            }
-
-            Invoke("Reload", 2f);
-        }
-
- 
-        if (_interactiveObjects.Count==0)
-           //if (isWin==true)
-                _gameWinPanel.SetActive(true);
-    }
+    //    if (_interactiveObjects.Count==0)
+    //       //if (isWin==true)
+    //            _gameWinPanel.SetActive(true);
+    //}
 
     private void Reload()
     {

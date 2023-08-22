@@ -7,7 +7,7 @@ public sealed class DisplayBonuses : MonoBehaviour
 
     public void Display(int value)
     {
-        _text.text = $"Вы набрали {value}";
+        _text.text = $"Бонусы: " + value;
     }
 }
 
